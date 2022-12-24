@@ -45,7 +45,7 @@ async def root(uploadedFile: UploadFile):
             loaded_image = read_image_file(imageInBytes)
             
         except Exception:
-            return {"Image is not base64"}  
+            return {"Error", Exception}  
 
     elif image_analysis["encoding"] == None:
         print("--------------------------------------------------")
