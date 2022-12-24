@@ -87,6 +87,11 @@ function WebcamCapture() {
                 videoConstraints={videoConstraints}
             />
             <br></br>
+            <Button 
+            onClick={handleClick}
+            >
+                Change Camera
+            </Button>
             {loading ? <Loading /> :
                 <Button onClick={capture} variant="primary">Capture</Button>}
 
@@ -100,7 +105,6 @@ function WebcamCapture() {
                     ))}
                 </ListGroup>
             )}
-            <Button onClick={handleClick}>Change Camera</Button>
         </div>
     );
 }
