@@ -27,7 +27,7 @@ function WebcamCapture() {
                 { type: 'image/jpeg' })
         );
         try {
-            const response = await fetch('https://four-garlics-do-90-194-236-174.loca.lt', {
+            const response = await fetch('http://localhost:5000/?image', {
                 method: 'POST',
                 body: payload,
                 contentType: 'application/octet-stream'

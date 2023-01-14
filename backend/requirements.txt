@@ -4,3 +4,4 @@ uvicorn
 image
 tensorflow-cpu
 python-multipart
+chardet
