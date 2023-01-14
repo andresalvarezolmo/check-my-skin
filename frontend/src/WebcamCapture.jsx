@@ -15,7 +15,7 @@ function WebcamCapture() {
     const [loading, setLoading] = useState(false);
     const [hasPermission, setHasPermission] = useState(false);
     const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
-
+    const [statusCode, setStatusCode] = useState(null);
 
     const capture = async () => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -27,13 +27,17 @@ function WebcamCapture() {
                 { type: 'image/jpeg' })
         );
         try {
-            const response = await fetch('http://localhost:8000/?image', {
+            const response = await fetch('https://four-garlics-do-90-194-236-174.loca.lt', {
                 method: 'POST',
                 body: payload,
                 contentType: 'application/octet-stream'
             });
+            if (!response.ok) {
+                setStatusCode(response.status);
+            }
             const data = await response.json();
             setResponse(data);
+            setStatusCode(null);
         } catch (error) {
             console.error(error);
         }
@@ -75,7 +79,7 @@ function WebcamCapture() {
                 : FACING_MODE_USER
         );
     }, []);
-    
+
     let videoConstraints = {
         facingMode: facingMode
     };
@@ -87,8 +91,8 @@ function WebcamCapture() {
                 videoConstraints={videoConstraints}
             />
             <br></br>
-            <Button 
-            onClick={handleClick}
+            <Button
+                onClick={handleClick}
             >
                 Change Camera
             </Button>
@@ -105,6 +109,13 @@ function WebcamCapture() {
                     ))}
                 </ListGroup>
             )}
+
+            {statusCode && ( // check if statusCode is not null
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                    <h2>Error with HTTP Code {statusCode}</h2>
+                </div>
+            )}
+            
         </div>
     );
 }
