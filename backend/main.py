@@ -34,18 +34,18 @@ async def root(uploadedFile: UploadFile):
     
     image_content = await uploadedFile.read()
     image_analysis = chardet.detect(image_content)
-    print(image_analysis)
+
 
     if image_analysis["encoding"] == 'ascii':
         try: 
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
+            print("++++++++++++++++++++++++++++++++++++                         +++++++++++++++")
             base64picture = image_content
-            decoded = str(base64picture)[25:-1]
+            decoded = str(base64picture)[24:-1]
             imageInBytes = base64.b64decode(decoded)
             loaded_image = read_image_file(imageInBytes)
             
-        except Exception:
-            return {"Error", Exception}  
+        except Exception as err:
+            return {"Image was not processed correctly", err}  
 
     elif image_analysis["encoding"] == None:
         print("--------------------------------------------------")
@@ -53,6 +53,11 @@ async def root(uploadedFile: UploadFile):
     
     img_array = img_to_array(loaded_image)
     img_array = expand_dims(img_array, 0)
+    
+    # delete 4th channel of information so it can be to then model
+    if img_array.shape[3] == 4:
+        img_array = img_array[:,:,:,:3]
+
     probabilities = model.predict(img_array)
     probabilities = probabilities[0].tolist()
 
