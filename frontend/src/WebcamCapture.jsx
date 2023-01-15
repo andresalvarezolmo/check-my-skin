@@ -5,9 +5,11 @@ import React, { useRef, useState, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { Spin } from 'antd';
 
+require('dotenv').config()
+
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
-
+const BACKEND_IP = process.env.BACKEND_IP;
 function WebcamCapture() {
 
     const webcamRef = useRef(null);
@@ -27,7 +29,7 @@ function WebcamCapture() {
                 { type: 'image/jpeg' })
         );
         try {
-            const response = await fetch('http://localhost:5000/?image', {
+            const response = await fetch(`${BACKEND_IP}`, {
                 method: 'POST',
                 body: payload,
                 contentType: 'application/octet-stream'
