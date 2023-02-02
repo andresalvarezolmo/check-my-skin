@@ -5,11 +5,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { Spin } from 'antd';
 
-require('dotenv').config()
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
-const BACKEND_IP = process.env.BACKEND_IP;
+const BACKEND_IP = "127.0.0.1";
 function WebcamCapture() {
 
     const webcamRef = useRef(null);
