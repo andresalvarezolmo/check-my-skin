@@ -8,4 +8,4 @@ This project serves as spin-off of my Honours Project. It pretends to implement 
 - Backend will be running in [localhost:5000](http://localhost:5000)
 
 ## Project in construction...
-View current state of the project in [andresalvarezolmo.com](andresalvarezolmo.com). CI/CD construction still in progress.
+The current state of the project will soon be visible at [andresalvarezolmo.com](andresalvarezolmo.com). CI/CD construction still in progress.
